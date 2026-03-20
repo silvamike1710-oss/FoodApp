@@ -1,72 +1,78 @@
+import styled from "styled-components";
+const Container = styled.div`
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+`;
+
+const Title = styled.h2`
+  margin-bottom: 10px;
+`;
+
+const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+`;
+
+const ItemText = styled.span`
+  font-size: 14px;
+`;
+
+const RemoveButton = styled.button`
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+  }
+`;
+
+const Total = styled.h3`
+  margin-top: 10px;
+  font-weight: bold;
+`;
+
+const Empty = styled.p`
+  color: #777;
+  font-size: 14px;
+`;
+
 function Cart({ cart, removeFromCart }) {
   const total = cart.reduce(
     (sum, item) => sum + item.price * item.qty,
     0
   );
 
-  const styles = {
-    container: {
-      background: "white",
-      padding: "15px",
-      borderRadius: "10px",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-    },
-    title: {
-      marginBottom: "10px"
-    },
-    item: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "8px 0",
-      borderBottom: "1px solid #eee"
-    },
-    itemText: {
-      fontSize: "14px"
-    },
-    button: {
-      background: "#ff4d4d",
-      color: "white",
-      border: "none",
-      padding: "5px 10px",
-      borderRadius: "5px",
-      cursor: "pointer"
-    },
-    total: {
-      marginTop: "10px",
-      fontWeight: "bold"
-    },
-    empty: {
-      color: "#777",
-      fontSize: "14px"
-    }
-  };
-
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Cart</h2>
+    <Container>
+      <Title>Cart</Title>
 
       {cart.length === 0 ? (
-        <p style={styles.empty}>Your cart is empty</p>
+        <Empty>Your cart is empty</Empty>
       ) : (
         cart.map(item => (
-          <div key={item.id} style={styles.item}>
-            <span style={styles.itemText}>
+          <Item key={item.id}>
+            <ItemText>
               {item.name} x{item.qty}
-            </span>
+            </ItemText>
 
-            <button
-              style={styles.button}
-              onClick={() => removeFromCart(item.id)}
-            >
+            <RemoveButton onClick={() => removeFromCart(item.id)}>
               Remove
-            </button>
-          </div>
+            </RemoveButton>
+          </Item>
         ))
       )}
 
-      <h3 style={styles.total}>Total: R$ {total}</h3>
-    </div>
+      <Total>Total: R$ {total}</Total>
+    </Container>
   );
 }
 

@@ -1,4 +1,39 @@
 import { useState } from "react";
+import styled from "styled-components";
+const Container = styled.div`
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+`;
+
+const Title = styled.h2`
+  margin-bottom: 10px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: ${props => (props.$disabled ? "#aaa" : "#25d366")};
+  color: white;
+  border-radius: 5px;
+  cursor: ${props => (props.$disabled ? "not-allowed" : "pointer")};
+  font-weight: bold;
+
+  &:hover {
+    opacity: ${props => (props.$disabled ? 1 : 0.9)};
+  }
+`;
 
 function CheckoutForm({ cart }) {
   const [name, setName] = useState("");
@@ -18,7 +53,7 @@ function CheckoutForm({ cart }) {
 Order:
 ${items}
 
-Total: R$ ${total}
+Total: R$ ${total.toFixed(2)}
 
 Name: ${name}
 Address: ${address}
@@ -29,72 +64,32 @@ Address: ${address}
     );
   };
 
-  // Styles
-  const styles = {
-    container: {
-      background: "white",
-      padding: "15px",
-      borderRadius: "10px",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-    },
-    title: {
-      marginBottom: "10px"
-    },
-    input: {
-      width: "100%",
-      padding: "8px",
-      marginBottom: "10px",
-      borderRadius: "5px",
-      border: "1px solid #ccc",
-      fontSize: "14px"
-    },
-    button: {
-      width: "100%",
-      padding: "10px",
-      border: "none",
-      background: "#25d366",
-      color: "white",
-      borderRadius: "5px",
-      cursor: "pointer",
-      fontWeight: "bold"
-    },
-    disabledButton: {
-      background: "#aaa",
-      cursor: "not-allowed"
-    }
-  };
-
   const isDisabled = cart.length === 0 || !name || !address;
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Checkout</h2>
+    <Container>
+      <Title>Checkout</Title>
 
-      <input
-        style={styles.input}
+      <Input
         placeholder="Your name"
         value={name}
         onChange={e => setName(e.target.value)}
       />
 
-      <input
-        style={styles.input}
+      <Input
         placeholder="Address"
         value={address}
         onChange={e => setAddress(e.target.value)}
       />
 
-      <button
-        style={{
-          ...styles.button,
-          ...(isDisabled ? styles.disabledButton : {})
-        }}
+      <Button
         onClick={sendWhatsapp}
         disabled={isDisabled}
+        $disabled={isDisabled}
       >
         Order via WhatsApp
-      </button>
-    </div>
+      </Button>
+    </Container>
   );
 }
 
