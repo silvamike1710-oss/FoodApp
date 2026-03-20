@@ -3,6 +3,36 @@ import { products } from "./data/products";
 import ProductCard from "./components/ProductCards";
 import Cart from "./components/Cart";
 import CheckoutForm from "./components/CheckoutForm";
+import styled from "styled-components";
+const Page = styled.div`
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const Layout = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+`;
+
+const ProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+`;
+
+const Sidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -32,43 +62,12 @@ function App() {
     setCart(prev => prev.filter(item => item.id !== id));
   };
 
-  //Styles
-  const styles = {
-    page: {
-      padding: "20px",
-      backgroundColor: "#f5f5f5",
-      minHeight: "100vh",
-      fontFamily: "Arial, sans-serif"
-    },
-    title: {
-      textAlign: "center",
-      marginBottom: "20px"
-    },
-    layout: {
-      display: "grid",
-      gridTemplateColumns: "2fr 1fr",
-      gap: "20px"
-    },
-    products: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-      gap: "15px"
-    },
-    sidebar: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "20px"
-    }
-  };
-
   return (
-    <div style={styles.page}>
-      <h1 style={styles.title}>Food Ordering</h1>
+    <Page>
+      <Title>Food Ordering</Title>
 
-      <div style={styles.layout}>
-        
-        {/* Products */}
-        <div style={styles.products}>
+      <Layout>
+        <ProductsGrid>
           {products.map(product => (
             <ProductCard
               key={product.id}
@@ -76,16 +75,14 @@ function App() {
               addToCart={addToCart}
             />
           ))}
-        </div>
+        </ProductsGrid>
 
-        {/* Cart + Checkout */}
-        <div style={styles.sidebar}>
+        <Sidebar>
           <Cart cart={cart} removeFromCart={removeFromCart} />
           <CheckoutForm cart={cart} />
-        </div>
-
-      </div>
-    </div>
+        </Sidebar>
+      </Layout>
+    </Page>
   );
 }
 
