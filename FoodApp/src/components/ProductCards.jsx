@@ -10,11 +10,6 @@ function ProductCard({ product, addToCart }) {
       transition: "transform 0.2s ease, box-shadow 0.2s ease",
       cursor: "pointer"
     },
-    image: {
-      width: "100%",
-      borderRadius: "10px",
-      marginBottom: "10px"
-    },
     name: {
       margin: "10px 0 5px",
       fontSize: "16px"
@@ -47,7 +42,6 @@ function ProductCard({ product, addToCart }) {
         e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
       }}
     >
-      <img src={product.image} style={styles.image} />
 
       <h3 style={styles.name}>{product.name}</h3>
 
