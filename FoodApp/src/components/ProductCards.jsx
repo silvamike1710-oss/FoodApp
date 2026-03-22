@@ -29,14 +29,15 @@ const Button = styled.button`
   width: 100%;
   padding: 8px;
   border: none;
-  background: #ff4d4d;
+  background: #ccc;
   color: white;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: background 0.2s ease;
 
   &:hover {
-    opacity: 0.9;
+    background: #28a745; 
   }
 `;
 
