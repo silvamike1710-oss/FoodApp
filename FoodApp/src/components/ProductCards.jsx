@@ -1,59 +1,56 @@
+import styled from "styled-components";
+
+const Card = styled.div`
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+`;
+
+const Name = styled.h3`
+  margin: 10px 0 5px;
+  font-size: 16px;
+`;
+
+const Price = styled.p`
+  color: #555;
+  margin-bottom: 10px;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: #ff4d4d;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
 function ProductCard({ product, addToCart }) {
-
-  const styles = {
-    card: {
-      background: "white",
-      padding: "15px",
-      borderRadius: "12px",
-      boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-      textAlign: "center",
-      transition: "transform 0.2s ease, box-shadow 0.2s ease",
-      cursor: "pointer"
-    },
-    name: {
-      margin: "10px 0 5px",
-      fontSize: "16px"
-    },
-    price: {
-      color: "#555",
-      marginBottom: "10px"
-    },
-    button: {
-      width: "100%",
-      padding: "8px",
-      border: "none",
-      background: "#ff4d4d",
-      color: "white",
-      borderRadius: "6px",
-      cursor: "pointer",
-      fontWeight: "bold"
-    }
-  };
-
   return (
-    <div
-      style={styles.card}
-      onMouseEnter={e => {
-        e.currentTarget.style.transform = "scale(1.03)";
-        e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.15)";
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
-      }}
-    >
+    <Card>
+      <Name>{product.name}</Name>
 
-      <h3 style={styles.name}>{product.name}</h3>
+      <Price>R$ {product.price}</Price>
 
-      <p style={styles.price}>R$ {product.price}</p>
-
-      <button
-        style={styles.button}
-        onClick={() => addToCart(product)}
-      >
+      <Button onClick={() => addToCart(product)}>
         Add to Cart
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 }
 

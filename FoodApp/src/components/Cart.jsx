@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 const Container = styled.div`
   background: white;
   padding: 15px;
@@ -35,9 +36,11 @@ const RemoveButton = styled.button`
   }
 `;
 
+//adicionado
 const Total = styled.h3`
   margin-top: 10px;
   font-weight: bold;
+  color: ${props => (props.$adicionado ? "#25d366" : "#999")};
 `;
 
 const Empty = styled.p`
@@ -50,6 +53,8 @@ function Cart({ cart, removeFromCart }) {
     (sum, item) => sum + item.price * item.qty,
     0
   );
+
+  const adicionado = cart.length > 0; 
 
   return (
     <Container>
@@ -71,7 +76,10 @@ function Cart({ cart, removeFromCart }) {
         ))
       )}
 
-      <Total>Total: R$ {total}</Total>
+      
+      <Total $adicionado={adicionado}>
+        Total: R$ {total}
+      </Total>
     </Container>
   );
 }
